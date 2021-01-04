@@ -12,14 +12,13 @@
 
 /* Elements' parameters */
 
-nav-menu {
-    color: var(--main-accent);
-    margin: 0 0 0 0;
-}
 .text-center {
     text-align: center;
 }
 
+h1, h2, h3, h4, h5 {
+    text-align: left;
+}
 /* Styling horizontal lines */
 hr.topline {
     border: 5px solid var(--main-accent);
@@ -42,8 +41,9 @@ div.site-footer {
 
 /* navigation top panel */
 a.nav-link {
-    padding-left: 5px;
-    padding-right: 5px;
+    padding: 5px;
+    /* padding-left: 5px; */
+    /* padding-right: 5px; */
     /* border-radius: 2px; */
     color: var(--main-accent);
     text-decoration: none;
@@ -53,7 +53,7 @@ a.nav-link {
 a.nav-link:hover {
     color: var(--main-bg);
     background-color: var(--main-accent);
-    padding: 5px;
+    padding-top: 8px;
 }
 
 /* list stickers */
@@ -75,14 +75,14 @@ a.nav-link:hover {
 }
 /* normal links */
 
-a:not(.nav-link):not(.sticker) {
+a:not(.nav-link):not(.sticker):not(not-a-text-link) {
     color: var(--main-accent);
     border-top: 1px dashed var(--main-accent);
     border-bottom: 1px dashed var(--main-accent);
     text-decoration: none;
     padding: 2px;
 }
-a:hover:not(.nav-link):not(.sticker) {
+a:hover:not(.nav-link):not(.sticker):not(not-a-text-link) {
     color: var(--main-bg);
     background-color: var(--main-accent);
     border-radius: 5px;
@@ -100,20 +100,24 @@ a[href*="wikipedia.org"]:not(.nav-link):not(.sticker)::before {
     vertical-align: -30%;
 }
 
-a[href*="bochkarev.io"]:not(.nav-link)::before,
+a:not(not-a-text-link):not(.nav-link):not([href^="mailto"])::before,
 a[href^="/"]:not(.nav-link)::before,
-a[href^="#"]:not(.nav-link):not(.footnote-backref):not(.footnote-ref):not(.sticker)::before
+a[href^="#"]:not( < #table-of-contents):not(not-a-text-link):not(a) > not-a-text-link:not(.nav-link):not(.footnote-backref):not(.footnote-ref):not(.sticker)::before
 {
-    content: '§ '
+    content: '§';
+    padding-right: 2px;
 }
 
-a:not([href*='bochkarev.io']):not([href^='#']):not([href^='/']):not([href*="github.com"]):not([href*="wikipedia.org"]):not(.nav-link):not(.sticker)::before {
+a[href^="mailto:"]:not(.nav-link)::before {
+    content: url('/email.svg');
+    padding: 5px;
+}
+
+a:not([href^='#']):not([href^='/']):not([href*="github.com"]):not([href*="wikipedia.org"]):not(.nav-link):not(.sticker):not([href^="mailto:"])::before {
     content: url('/outside.svg');
     padding: 5px;
 }
 
-/* a[href*="github.com"]:not(.nav-link):hover::before, */
-/* a[href*="wikipedia.org"]:not(.nav-link):hover::before */
 a:hover::before
 {
     filter: invert(100%);
@@ -122,30 +126,70 @@ a:hover::before
 
 
 /* menu style */
-.menu {
+ul#nav-menu {
+    margin: 0;
+    padding-top: 0;
+    padding-left: 0;
+}
+
+.menu-item {
+    margin-left: 1ch;
+}
+
+/* version for a narrow screen */
+nav#nav-menu {
+    display: inline-block;
+    padding: 0;
+    margin: 0 auto;
     text-align: center;
-    float: center;
-    margin: auto;
-    /* width: 60%; */
-    /* max-width: 60ch; */
-    background: var(--nothing);
-    border-bottom: 1px solid var(--shadow);
-    /* padding-left: 10ch; */
-    /* padding-right: 10ch; */
+}
+
+/* version for a wider screen */
+@media (min-width: 768px) {
+    nav#nav-menu {
+        background-color: transparent;
+    }
+
+    ul#nav-menu {
+        padding-top: 0;
+        display: inline;
+        text-align: center;
+    }
+
+    ul#nav-menu li{
+        display: inline-block;
+    }
+}
+
+/* common styling */
+ul#nav-menu{
+    list-style-type: none;
+}
+
+#checkbox {
+    display: none;
+}
+
+#checkbox:not(checked) ~ nav ul{
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.1s;
+}
+
+#checkbox:checked ~ nav ul {
+    max-height: 300px;
+    padding: 15px 0;
+    transition: all 0.5s;
 }
 
 /* sticky top menu */
 .row {
     position: -webkit-sticky; /* Safari */
     position: sticky;
-    /* background-color: var(--main-bg); */
     top: 0;
-}
-
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
+    background-color: var(--nothing);
+    border-bottom: 1px solid var(--shadow);
+    text-align: center;
 }
 
 .nav-icon-link {
@@ -156,14 +200,57 @@ a:hover::before
     color: inherit;
     vertical-align: -0.125em;
     fill: currentColor;
-    /* padding-top: 5px; */
-    /* padding-left: 5px; */
+    padding: 5px;
+}
+
+.menu-toggle{
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    font-size: inherit;
+    color: inherit;
+    vertical-align: -0.125em;
+    fill: var(--main-accent);
+    padding-top: 5px;
+    padding-left: 10px;
     /* padding-right: 5px; */
     /* border-radius: 2px; */
 }
 
+.menu-toggle-text {
+    color: var(--main-accent);
+    margin-left: 1ch;
+}
+@media (min-width: 768px){
+    .menu-toggle{
+        display: none;
+    }
+    .menu-toggle-text{
+        display: none;
+    }
+}
+
+/* lists styling */
+ul:not(#nav-menu) {
+    list-style-type: none; /* Remove list bullets */
+    text-indent: -20px;
+    padding: 1ch;
+    margin: 0;
+}
+
+li:not(.menu-item) {
+    padding-left: 16px;
+}
+
+li:not(.menu-item):not([role="doc-endnote"]):before {
+    content: "‒"; /* Insert content that looks like bullets */
+    padding-right: 8px;
+    color: var(--main-accent); /* Or a color you prefer */
+}
+
 a.nav-icon-link:hover {
-    padding-top: 2px;
+    /* padding-top: 2px; */
+    padding: 5px;
 }
 
 /* note block (metadata) */
@@ -177,10 +264,11 @@ a.nav-icon-link:hover {
 .metadata {
     font-size: 70%;
 }
+
 /* general parameters */
 .main-text {
     margin: auto;
-    width: 50%;
+    width: 60%;
     max-width: 60ch;
     background: var(--main-bg);
     border: 1px solid var(--main-bg-accent);
@@ -188,9 +276,10 @@ a.nav-icon-link:hover {
     padding-left: 10ch;
     padding-right: 10ch;
     padding-bottom: 2em;
+    text-align: justify;
 }
 
-@media screen and (max-width: 140ch){
+@media screen and (max-width: 80ch){
     .main-text {
         width: 90%;
         padding-left: 0;
@@ -212,6 +301,7 @@ body {
 /* sticky footer */
 html, body {
     height: 100%;
+    scroll-padding-top: 100px;
 }
 .container {
     flex: 1 0 auto;
@@ -252,11 +342,12 @@ div.highlight > pre {
     overflow-x: auto;
 }
 
-div.highlight:hover {
-    width: 60vw;
-    margin-right: calc(-50vw + 50%);
+@media screen and (min-width: 80ch){
+    div.highlight:hover {
+        width: 80vw;
+        margin-right: calc(-50vw + 50%);
+    }
 }
-
 /* table styling */
 table {
     border-collapse: collapse;
