@@ -268,7 +268,7 @@ a.nav-icon-link:hover {
 /* general parameters */
 .main-text {
     margin: auto;
-    width: 60%;
+    width: 80%;
     max-width: 60ch;
     background: var(--main-bg);
     border: 1px solid var(--main-bg-accent);
