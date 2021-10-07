@@ -16,8 +16,30 @@
     text-align: center;
 }
 
+h1 {
+    margin-bottom: 5px;
+    font-size: 1.5em;
+    line-height: 1.75em;
+}
 h1, h2, h3, h4, h5 {
     text-align: left;
+}
+
+h2 {
+    border-bottom: 1px solid var(--shadow);
+    font-size: 1.25em;
+    margin-bottom: 5px;
+}
+
+h3 {
+    color: var(--main-accent);
+    font-size: 1.125em;
+    margin-bottom: 5px;
+}
+
+p {
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
 /* Styling horizontal lines */
 hr.topline {
@@ -56,6 +78,16 @@ a.nav-link:hover {
     padding-top: 8px;
 }
 
+/* summary element */
+details summary {
+    color: var(--code)
+}
+details p {
+    border-left: 3px solid var(--shadow);
+    margin-left: 3px;
+    padding-left: 7px;
+}
+
 /* list stickers */
 .sticker {
     color: inherit;
@@ -75,50 +107,53 @@ a.nav-link:hover {
 }
 /* normal links */
 
-a:not(.nav-link):not(.sticker):not(not-a-text-link) {
+a:not(.nav-link):not(.sticker):not(.not-a-text-link):not([href*="#notalink"]) {
     color: var(--main-accent);
-    border-top: 1px dashed var(--main-accent);
-    border-bottom: 1px dashed var(--main-accent);
+    border-top: 1px dotted var(--main-accent);
+    border-bottom: 1px dotted var(--main-accent);
     text-decoration: none;
-    padding: 2px;
+    /* padding: 1px; */
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 2px;
 }
-a:hover:not(.nav-link):not(.sticker):not(not-a-text-link) {
+a:hover:not(.nav-link):not(.sticker):not(not-a-text-link):not([href*="#notalink"]) {
     color: var(--main-bg);
     background-color: var(--main-accent);
     border-radius: 5px;
-    padding: 2px;
 }
 
 /* special links type */
-a[href*="github.com"]:not(.nav-link):not(.sticker)::before {
+a[href*="github.com"]:not(.nav-link):not(.sticker)::after {
     content: url('/gh.svg');
-    vertical-align: -30%;
+    padding-left: 5px;
+    vertical-align: 10%;
+    margin-right: 0px;
+    white-space: nowrap;
 }
 
-a[href*="wikipedia.org"]:not(.nav-link):not(.sticker)::before {
+a[href*="wikipedia.org"]:not(.nav-link):not(.sticker)::after {
     content: url('/wiki.svg');
-    vertical-align: -30%;
+    vertical-align: 10%;
+    padding-left: 0px;
+    margin-right: 0px;
+    white-space: nowrap;
 }
 
-a:not(not-a-text-link):not(.nav-link):not([href^="mailto"])::before,
-a[href^="/"]:not(.nav-link)::before,
-a[href^="#"]:not( < #table-of-contents):not(not-a-text-link):not(a) > not-a-text-link:not(.nav-link):not(.footnote-backref):not(.footnote-ref):not(.sticker)::before
-{
-    content: '§';
-    padding-right: 2px;
-}
-
-a[href^="mailto:"]:not(.nav-link)::before {
+a[href^="mailto:"]:not(.nav-link):after {
     content: url('/email.svg');
     padding: 5px;
+    white-space: nowrap;
 }
 
-a:not([href^='#']):not([href^='/']):not([href*="github.com"]):not([href*="wikipedia.org"]):not(.nav-link):not(.sticker):not([href^="mailto:"])::before {
+a:not([href^='#']):not([href^='/']):not([href*="github.com"]):not([href*="wikipedia.org"]):not(.nav-link):not(.sticker):not([href^="mailto:"]):not([href^="https://www.bochkareva.me"])::after {
     content: url('/outside.svg');
+    vertical-align: 15%;
     padding: 5px;
+    white-space: nowrap;
 }
 
-a:hover::before
+a:hover::after
 {
     filter: invert(100%);
     color: var(--main-accent);
@@ -235,6 +270,8 @@ ul:not(#nav-menu) {
     list-style-type: none; /* Remove list bullets */
     text-indent: -20px;
     padding: 1ch;
+    padding-top: 1px;
+    padding-bottom: 1px;
     margin: 0;
 }
 
@@ -242,8 +279,14 @@ li:not(.menu-item) {
     padding-left: 16px;
 }
 
-li:not(.menu-item):not([role="doc-endnote"]):before {
+ul li:not(.menu-item):not([role="doc-endnote"]):before {
     content: "‒"; /* Insert content that looks like bullets */
+    padding-right: 8px;
+    color: var(--main-accent); /* Or a color you prefer */
+}
+
+ul li li:not(.menu-item):not([role="doc-endnote"]):before {
+    content: "‣"; /* Insert content that looks like bullets */
     padding-right: 8px;
     color: var(--main-accent); /* Or a color you prefer */
 }
@@ -269,12 +312,13 @@ a.nav-icon-link:hover {
 .main-text {
     margin: auto;
     width: 80%;
-    max-width: 60ch;
-    background: var(--main-bg);
-    border: 1px solid var(--main-bg-accent);
-	  box-shadow: 4px 4px 2px 0px rgba(0,0,0,0.3); /* outer shadow */
-    padding-left: 10ch;
-    padding-right: 10ch;
+    max-width: 70ch;
+    /* background: var(--main-bg); */
+    /* border: 1px solid var(--light-shadow); */
+	  /* box-shadow: 4px 4px 2px 0px rgba(0,0,0,0.3); /\* outer shadow *\/ */
+    padding-top: 1px;
+    padding-left: 5ch;
+    padding-right: 5ch;
     padding-bottom: 2em;
     text-align: justify;
 }
@@ -292,7 +336,8 @@ a.nav-icon-link:hover {
 body {
     margin: 0;
     line-height: 1.6;
-    font-size: 18px;
+    font-size: 100%;
+    font-family: Arial, sans-serif; 
     color: #444;
     display: flex;
     flex-direction: column;
@@ -321,6 +366,14 @@ img[src*="#half-shadow"] {
     margin-right: auto;
 }
 
+img[src*="#half-flat"] {
+    max-width: 80%;
+    margin: 0px auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 img[src*="#full-shadow"] {
     max-width: 100%;
     margin: 0px auto;
@@ -328,6 +381,50 @@ img[src*="#full-shadow"] {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+/* styling figures (for orgmode export, incl. plantUML) */
+
+figure {
+    max-width: 100%;
+    margin: 0px auto;
+	  box-shadow: 8px 8px 5px 1px rgba(0,0,0,0.3); /* outer shadow */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--nothing);
+    border: 1px solid var(--shadow);
+    border-left: 5px solid var(--main-bg-accent);
+    text-align: center;
+}
+
+.note {
+    max-width: 100%;
+    margin: 0px auto;
+	  box-shadow: 8px 8px 5px 1px rgba(0,0,0,0.3); /* outer shadow */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--nothing);
+    border: 1px solid var(--shadow);
+    border-left: 5px solid var(--main-bg-accent);
+    padding-left: 10px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+    text-align: left;
+}
+
+left-accent {
+    border-left: 5px solid var(--main-bg-accent);
+}
+figure img{
+    max-width: 100%;
+    background-size: contain;
+}
+
+figcaption {
+    padding: 5px;
+    text-align: left;
 }
 
 /* syntax highlighting and code */
@@ -372,7 +469,7 @@ table td {
 /* Inspired by: https://alhassy.github.io/AlBasmala#org9da168d */
 /*TOC inspired by https://orgmode.org/worg/ */
 #table-of-contents {
-    /* Place the toc in the top right corner */
+    /* Place the toc in the top left corner */
     position: fixed; left: 1em; top: 0em;
     margin-top: 50px; /* offset from the top of the screen */
     background-color: var(--main-bg);
@@ -391,14 +488,14 @@ table td {
 
 /* How big is the text “Table of Contents” and space around it */
 #table-of-contents h2 {
-    font-size: 13pt;
+    font-size: 80%;
     max-width: 9em;
     border: 0;
     font-weight: normal;
     padding-left: 0.5em;
     padding-right: 0.5em;
     padding-top: 0.05em;
-    padding-bottom: 0.05em; }
+    padding-bottom: 0.50em; }
 
 /* Intially have the TOC folded up; show it if the mouse hovers it */
 #table-of-contents #text-table-of-contents {
@@ -410,6 +507,7 @@ table td {
     display: block;
     padding: 0.5em;
     margin-top: -1.5em;
+    font-size: 80%;
 }
 
 /* home page with a photo */
@@ -420,7 +518,6 @@ table td {
 
 .col-right {
     width: 65%;
-    float: right;
 }
 
 /* the responsiveness magic :) */
@@ -435,8 +532,23 @@ table td {
     }
 }
 
+/* teaching images */
+@media screen and (min-width: 767px){
+.mainWrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+}
 /* Avatar image style */
 .img-av {
     border-radius: 50%;
     max-width: 90%;
+}
+
+.timestamp {
+    background-color: var(--main-bg-accent);
+    padding: 5px;
+    margin: 0;
 }
